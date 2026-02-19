@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def hello(request):
-    return render(request, 'hello.html')
+    return render(request, 'hello.html', {'language': 'C++', 'message': 'Hello World!'})
 
 def X(request, id):
     id = id + 1000
