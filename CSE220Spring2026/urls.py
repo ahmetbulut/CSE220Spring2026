@@ -21,5 +21,8 @@ from CSE220Spring2026 import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.hello),
+
+    path('X/<int:id>', views.X),
+    path('Y/', views.Y),
     path('blog/', include('blog.urls'))
 ]

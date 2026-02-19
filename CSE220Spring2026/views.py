@@ -3,5 +3,11 @@ from django.shortcuts import render
 
 
 def hello(request):
-    raise Http404()
     return render(request, 'hello.html')
+
+def X(request, id):
+    id = id + 1000
+    return HttpResponse(id)
+
+def Y(request):
+    raise Http404('Y')
