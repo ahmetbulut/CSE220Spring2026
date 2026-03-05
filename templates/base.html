@@ -1,22 +1,101 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Django Site{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #34495e;
+            padding: 20px;
+            color: white;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            background: #f4f6f8;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
 </head>
-
 <body>
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/hello/">Hello</a></li>
-            <li><a href="/blog/">Blog</a></li>
-        </ul>
-        {% endblock %}
+
+    <!-- Header -->
+    <header class="header">
+        <h1>My Django Website</h1>
+        {% block header %}{% endblock %}
+    </header>
+
+    <div class="container">
+
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h3>Navigation</h3>
+
+            <a href="/">Home</a>
+            <a href="/hello/">Hello Demo</a>
+
+            {% block sidebar %}{% endblock %}
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            {% block content %}
+            <h2>Welcome</h2>
+            <p>This is the default content.</p>
+            {% endblock %}
+        </main>
+
     </div>
 
-    <div id="content">
-        {% block content %}This is the placeholder content in our main page. {% endblock %}
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 My Django Site</p>
+        {% block footer %}{% endblock %}
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+
 </body>
 </html>
