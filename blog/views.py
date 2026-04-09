@@ -10,18 +10,19 @@ def index(request):
     return HttpResponseRedirect('/hello/')
 
 def create(request):
-    form = PostForm()
-    return render(request, "create.html", {"form": form})
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            date = form.cleaned_data["date"]
+            post = Post(title=title, content=content, date=date)
+            post.save()
+            return HttpResponseRedirect('/blog')
+    else:
+        form = PostForm()
 
-def save(request):
-    form = PostForm(request.POST)
-    if form.is_valid():
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
-        date = form.cleaned_data["date"]
-        post = Post(title=title, content=content, date=date)
-        post.save()
-        return HttpResponseRedirect('/blog')
+    return render(request, "create.html", {"form": form})
 
 def list(request):
     posts = Post.objects.all()
