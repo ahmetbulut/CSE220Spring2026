@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.db import transaction
 
 from blog.forms import PostForm
 from blog.models import Post
@@ -17,7 +18,9 @@ def create(request):
             content = form.cleaned_data["content"]
             date = form.cleaned_data["date"]
             post = Post(title=title, content=content, date=date)
-            post.save()
+            with transaction.atomic():
+                post.save()
+                ##raise Exception("Fena bir Problem Çıktı !")
             return HttpResponseRedirect('/blog')
     else:
         form = PostForm()
